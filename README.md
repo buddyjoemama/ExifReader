@@ -8,40 +8,19 @@ This software allows a developer to add custom properties and map them to specif
 
 ex:
 
-    public class EXIFTags : ITagParsable
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var data = TagParser.Parse<ExifTags>(Resource.Sample.PropertyItems.ToList());
+        }
+    }
+
+    public class ExifTags
     {
         [TagId(306)]
         [DateTime]
-        public DateTime FileChangeDateTime { get; set; }
-
-        [TagId(270)]
-        public String ImageTitle { get; set; }
-
-        [TagId(271)]
-        public String Manufacturer { get; set; }
-
-        [TagId(272)]
-        public String Model { get; set; }
-
-        public void BeginParse(int tagId, PropertyInfo property, PropertyItem item)
-        {
-
-        }
-
-        public void ParseFailed(PropertyInfo property, PropertyItem item, Exception exc)
-        {
-
-        }
-
-        public void BeforeSetProperty(PropertyInfo prop, object parsedValue)
-        {
-
-        }
-
-        public void AfterSetProperty(PropertyInfo prop, object parsedValue)
-        {
-
-        }
+        public DateTime? FileChangeDateTime { get; set; }
     }
     
     In the example above, ExifTags is a simple class with decorated properties. The attribute (tagid) informs the parser which 
@@ -52,20 +31,37 @@ ex:
     is a parser type. When the parser comes across this property decorated with this attribute, the DateTimeAttribute.ParseValue() is called
     and the result from which is set on the decorated property.
     
-    So to add a new parser, create a subclass of TypeParserAttribute and implement ParseValue(..).
+    ----------------------------------------------------------
     
-    The available built-in parsers are:
-    -DateTime
-    -String
-    -Rational (see exif spec)
+    Adding a custom parser: Create a subclass of TypeParserAttribute and implement ParseValue(..).
     
-    To use the parser:
-    
-    using ExifTagManager;
-    
+    class Program
+    {
         static void Main(string[] args)
         {
-            // Read a bitmap and use the EXIFTags() extension method to parse the exif data.
-            EXIFTags data = Resource.Sample.EXIFTags();
+            var data = TagParser.Parse<ExifTags>(Resource.Sample.PropertyItems.ToList());
         }
-        
+    }
+
+    public class ExifTags
+    {
+        [TagId(306)]
+        [MyParser]
+        public DateTime? FileChangeDateTime { get; set; }
+    }
+
+    public class MyParser : TypeParserAttribute
+    {
+        public override object ParseValue(PropertyItem item)
+        {
+            return null;
+            //throw new NotImplementedException();
+        }
+    }
+    
+    
+    TODO: 
+      - Rational parser
+      - Type inferencing (int, datetime)
+    
+    
