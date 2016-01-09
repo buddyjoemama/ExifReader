@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ExifTagManager;
 using System.Resources;
 using System.IO;
+using ExifTagManager.Parsers;
 
 namespace ImageOrganizer
 {
@@ -17,7 +18,23 @@ namespace ImageOrganizer
     {
         static void Main(string[] args)
         {
-            var data = Resource.Sample.EXIFTags();
+            var data = TagParser.Parse<ExifTags>(Resource.Sample.PropertyItems.ToList());
+        }
+    }
+
+    public class ExifTags
+    {
+        [TagId(306)]
+        [MyParser]
+        public DateTime? FileChangeDateTime { get; set; }
+    }
+
+    public class MyParser : TypeParserAttribute
+    {
+        public override object ParseValue(PropertyItem item)
+        {
+            return null;
+            //throw new NotImplementedException();
         }
     }
 }

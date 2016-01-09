@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExifTagManager.Parsers
 {
-    abstract class TypeParserAttribute : Attribute
+    public abstract class TypeParserAttribute : Attribute
     {
         public abstract object ParseValue(PropertyItem item);
     }

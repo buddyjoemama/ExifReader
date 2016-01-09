@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExifTagManager.Parsers
 {
-    class RationalAttribute : TypeParserAttribute
+    public class RationalAttribute : TypeParserAttribute
     {
         public override object ParseValue(PropertyItem item)
         {

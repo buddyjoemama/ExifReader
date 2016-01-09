@@ -3,7 +3,7 @@
 namespace ExifTagManager
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    internal class TagIdAttribute : Attribute
+    public class TagIdAttribute : Attribute
     {
         public TagIdAttribute(int tagId)
         {

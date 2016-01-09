@@ -10,11 +10,6 @@ namespace ExifTagManager
 {
     public static class Extensions
     {
-        public static EXIFTags EXIFTags(this Bitmap image)
-        {
-            return TagParser.Parse<EXIFTags>(image.PropertyItems.ToList());
-        }
-
         public static T MatchAs<T>(this Match match, String name, String @default = null)
         {
             String value = match.Groups[name].Value;

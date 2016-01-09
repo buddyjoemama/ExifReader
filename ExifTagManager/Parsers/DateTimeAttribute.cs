@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExifTagManager.Parsers
 {
-    class DateTimeAttribute : TypeParserAttribute
+    public class DateTimeAttribute : TypeParserAttribute
     {
         public override object ParseValue(PropertyItem item)
         {

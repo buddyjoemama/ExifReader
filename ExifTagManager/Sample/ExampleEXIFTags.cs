@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace ExifTagManager
 {
-    public class EXIFTags : ITagParsable
+    public class ExampleEXIFTags : ITagParsable
     {
         [TagId(306)]
         [DateTime]
