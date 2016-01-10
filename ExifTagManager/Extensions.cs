@@ -27,8 +27,7 @@ namespace ExifTagManager
 
         public static String GetString(this PropertyItem item)
         {
-            String str = Encoding.ASCII.GetString(item.Value);
-            return str.Replace("\0", "");
+            return Encoding.ASCII.GetString(item.Value.Take(item.Len - 1).ToArray());
         }
     }
 }
