@@ -58,7 +58,9 @@ namespace ExifTagManager
             switch (prop.PropertyType.Name)
             {
                 case "String":
-                    return Encoding.Default.GetString(item.Value).Trim();
+                    return Encoding.Default.GetString(item.Value);
+                case "Int32":
+                    return BitConverter.ToInt16(item.Value, 0);
             }
 
             // Any parser attributes?

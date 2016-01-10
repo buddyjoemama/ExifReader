@@ -25,8 +25,11 @@ namespace ImageOrganizer
     public class ExifTags
     {
         [TagId(306)]
-        [MyParser]
+        [DateTime]
         public DateTime? FileChangeDateTime { get; set; }
+
+        [TagId(274)]
+        public int Data { get; set; }
     }
 
     public class MyParser : TypeParserAttribute
