@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ExifTagManager;
 
 namespace ExifTagManager.Parsers
 {
@@ -12,11 +14,14 @@ namespace ExifTagManager.Parsers
     {
         public override object ParseValue(PropertyItem item)
         {
-            String str = Encoding.ASCII.GetString(item.Value);
-            var date = Regex.Match(str, @"^(?<year>\d+):(?<month>\d+):(?<day>\d+)\s?(?<hour>\d+):(?<min>\d+):");
+            String str = item.GetString();
 
-            return new DateTime(date.MatchAs<int>("year"), date.MatchAs<int>("month"), date.MatchAs<int>("day"),
-                date.MatchAs<int>("hour"), date.MatchAs<int>("min"), 0);
+            if (item.Len == 10)
+            {
+                return DateTime.ParseExact(str, "yyyy:MM:dd", CultureInfo.InvariantCulture);
+            }
+
+            return DateTime.ParseExact(str, "yyyy:MM:dd HH:mm:ss", CultureInfo.InvariantCulture);
         }
     }
 }

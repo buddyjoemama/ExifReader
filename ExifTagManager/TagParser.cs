@@ -58,7 +58,7 @@ namespace ExifTagManager
             switch (prop.PropertyType.Name)
             {
                 case "String":
-                    return Encoding.Default.GetString(item.Value);
+                    return item.GetString();
                 case "Int32":
                     return BitConverter.ToInt16(item.Value, 0);
             }
